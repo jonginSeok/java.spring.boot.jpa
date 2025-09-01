@@ -18,7 +18,7 @@ import com.ngins.spring.jpa.postgresql.jpa.entity.Trainingsession;
 import com.ngins.spring.jpa.postgresql.jpa.repository.TrainingsessionRepogitory;
 
 /**
- * Thymeleaf
+ * 
  */
 @RestController
 public class TrainingsessionController {
@@ -28,28 +28,24 @@ public class TrainingsessionController {
 
 	@GetMapping("/training")
 	public ResponseEntity<List<Trainingsession>> getAllTrainingsessions(@RequestParam(required = false) Long id) {
-
 		try {
-			List<Trainingsession> trainingsessions = null;
-//			Trainingsession ts = new Trainingsession();
-//			ts.getId() // Lombok 잘됨.
+			List<Trainingsession> trainingsessions;
 
 			if (id == null) {
 				trainingsessions = trainingsessionRepogitory.findAll();
 			} else {
-				 Optional<Trainingsession> trainingsession = trainingsessionRepogitory.findById(id);
-		            trainingsessions = trainingsession
-		                .map(Collections::singletonList) // 값이 있으면 리스트로 감싸기
-		                .orElse(Collections.emptyList()); // 없으면 빈 리스트 반환
+				Optional<Trainingsession> trainingsession = trainingsessionRepogitory.findById(id);
+				trainingsessions = trainingsession.map(Collections::singletonList) // 값이 있으면 리스트로 감싸기
+						.orElse(Collections.emptyList()); // 없으면 빈 리스트 반환
 			}
-			
-			//return new ResponseEntity<>(trainingsessions, HttpStatus.OK);
+
 			return ResponseEntity.ok(trainingsessions);
+			// return new ResponseEntity<>(trainingsessions, HttpStatus.OK);
 
 		} catch (Exception e) {
-			// return new ResponseEntity<List<Trainingsession>>((List<Trainingsession>)
-			// null, HttpStatus.INTERNAL_SERVER_ERROR);
+			// return new ResponseEntity<List<Trainingsession>>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+			
 		}
 	}
 

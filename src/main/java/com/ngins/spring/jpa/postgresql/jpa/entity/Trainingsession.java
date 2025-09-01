@@ -5,11 +5,8 @@ package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.time.LocalDateTime;
 
-//잘못된 import
-// import org.springframework.data.annotation.Id;
-//올바른 import
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,18 +18,16 @@ import lombok.Setter;
 /**
  * 
  */
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "training_trainingsession") // DB 실제 테이블명 지정
 public class Trainingsession {
-	
-	// @EmbeddedId
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column
+    private long id;
 	
     @Column(name = "model_name")
     private String model_name;
