@@ -22,6 +22,7 @@ import com.ngins.spring.jpa.postgresql.jpa.repository.TrainingsessionRepogitory;
 /**
  * 
  */
+
 @RestController
 public class TrainingsessionController {
 
@@ -30,7 +31,7 @@ public class TrainingsessionController {
 	@Autowired
 	TrainingsessionRepogitory trainingsessionRepogitory;
 
-	@GetMapping("/training")
+	@GetMapping("/training/trainingsession")
 	public ResponseEntity<List<Training_trainingsession>> getAllTrainingsessions(@RequestParam(required = false) Long id) {
 
 		List<Training_trainingsession> trainingsessions;
