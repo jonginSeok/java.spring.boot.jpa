@@ -79,7 +79,8 @@ application.properties에:
 3) 세션 저장소를 JDBC 대신 메모리로 변경 (필요 없는 경우)
 DB 세션 관리가 굳이 필요 없으면:
 	spring.session.store-type=none
-이렇게 하면 애초에 SPRING_SESSION / SPRING_SESSION_ATTRIBUTES를 찾지 않아요.
+
+	이렇게 하면 애초에 SPRING_SESSION / SPRING_SESSION_ATTRIBUTES를 찾지 않아요.
 
 /* ====================== Spring Boot TABLE End ======================= */
 
@@ -96,6 +97,60 @@ Using generated security password: aaf131aa-bd71-4ccc-ac82-0c617cc23e8c
 Using generated security password: 29c02f24-6859-4eb3-bed2-a71c080b9ef7
 
 /* ====================== Spring Boot  ======================= */
+[2m2025-09-21T04:01:32.152+09:00[0;39m [33m WARN[0;39m [35m13612[0;39m [2m--- [spring-boot-jpa-postgresql] [           main] [0;39m[36mJpaBaseConfiguration$JpaWebConfiguration[0;39m [2m:[0;39m spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2m2025-09-21T04:01:32.521+09:00[0;39m [33m WARN[0;39m [35m13612[0;39m [2m--- [spring-boot-jpa-postgresql] [           main] [0;39m[36m.a.s.UserDetailsServiceAutoConfiguration[0;39m [2m:[0;39m 
+
+Using generated security password: 77cb284c-23be-45ab-a579-05c58482db71
+
+This generated password is for development use only. Your security configuration must be updated before running your application in production.
+
+
+
+
+
+
+
+
+
+
+
+[2m2025-09-21T04:02:00.045+09:00[0;39m [31mERROR[0;39m [35m13612[0;39m [2m--- [spring-boot-jpa-postgresql] [pring-session-1] [0;39m[36mo.s.s.s.TaskUtils$LoggingErrorHandler   [0;39m [2m:[0;39m Unexpected error occurred in scheduled task
+
+org.springframework.jdbc.BadSqlGrammarException: PreparedStatementCallback; bad SQL grammar [DELETE FROM SPRING_SESSION
+WHERE EXPIRY_TIME < ?
+]
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:244) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:102) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.translateException(JdbcTemplate.java:1559) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:692) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:976) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1020) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.update(JdbcTemplate.java:1030) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.lambda$cleanUpExpiredSessions$8(JdbcIndexedSessionRepository.java:649) ~[spring-session-jdbc-4.0.0-M2.jar:4.0.0-M2]
+	at org.springframework.transaction.support.TransactionTemplate.execute(TransactionTemplate.java:137) ~[spring-tx-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.session.jdbc.JdbcIndexedSessionRepository.cleanUpExpiredSessions(JdbcIndexedSessionRepository.java:648) ~[spring-session-jdbc-4.0.0-M2.jar:4.0.0-M2]
+	at org.springframework.scheduling.support.DelegatingErrorHandlingRunnable.run(DelegatingErrorHandlingRunnable.java:54) ~[spring-context-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.scheduling.concurrent.ReschedulingRunnable.run(ReschedulingRunnable.java:94) ~[spring-context-7.0.0-M9.jar:7.0.0-M9]
+	at java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545) ~[na:na]
+	at java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328) ~[na:na]
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:309) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090) ~[na:na]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614) ~[na:na]
+	at java.base/java.lang.Thread.run(Thread.java:1474) ~[na:na]
+Caused by: org.postgresql.util.PSQLException: 오류: "spring_session" 이름의 릴레이션(relation)이 없습니다
+  Position: 13
+	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2734) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:2421) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:372) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.jdbc.PgStatement.executeInternal(PgStatement.java:518) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.jdbc.PgStatement.execute(PgStatement.java:435) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.jdbc.PgPreparedStatement.executeWithFlags(PgPreparedStatement.java:196) ~[postgresql-42.7.7.jar:42.7.7]
+	at org.postgresql.jdbc.PgPreparedStatement.executeUpdate(PgPreparedStatement.java:157) ~[postgresql-42.7.7.jar:42.7.7]
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeUpdate(ProxyPreparedStatement.java:61) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeUpdate(HikariProxyPreparedStatement.java) ~[HikariCP-7.0.2.jar:na]
+	at org.springframework.jdbc.core.JdbcTemplate.lambda$update$0(JdbcTemplate.java:981) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	at org.springframework.jdbc.core.JdbcTemplate.execute(JdbcTemplate.java:673) ~[spring-jdbc-7.0.0-M9.jar:7.0.0-M9]
+	... 14 common frames omitted
 
 
 
