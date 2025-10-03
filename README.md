@@ -1,6 +1,6 @@
-System architecture overview
+#System architecture overview
 
-관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다. 
+##관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다. 
 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
 • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
 • 인증: JWT 기반 로그인 (세션리스)
