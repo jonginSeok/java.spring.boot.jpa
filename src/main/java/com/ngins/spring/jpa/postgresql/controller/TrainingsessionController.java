@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ngins.spring.jpa.postgresql.jpa.entity.AppUser;
-import com.ngins.spring.jpa.postgresql.jpa.repository.TrainingsessionRepogitory;
+import com.ngins.spring.jpa.postgresql.jpa.repository.AppUserRepogitory;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class TrainingsessionController {
 	private static final Logger logger = LoggerFactory.getLogger(TrainingsessionController.class);
 
 	@Autowired
-	TrainingsessionRepogitory trainingsessionRepogitory;
+	AppUserRepogitory trainingsessionRepogitory;
 
 	@GetMapping("/training/trainingsession")
 	public ResponseEntity<List<AppUser>> getAllTrainingsessions(@RequestParam(required = false) Long id) {

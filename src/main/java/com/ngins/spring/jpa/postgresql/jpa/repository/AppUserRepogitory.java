@@ -12,6 +12,6 @@ import com.ngins.spring.jpa.postgresql.jpa.entity.AppUser;
  * 
  */
 @Repository
-public interface TrainingsessionRepogitory extends JpaRepository<AppUser, Long>{
+public interface AppUserRepogitory extends JpaRepository<AppUser, Long>{
 	
 }

@@ -4,7 +4,7 @@
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
+//@Entity
+@Embeddable
 @Table(name = "role_permission")
 public class RolePermission {
 
