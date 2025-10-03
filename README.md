@@ -1,6 +1,6 @@
-#System architecture overview
+# System architecture overview
 
-##관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다. 
+## 관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다. 
 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
 • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
 • 인증: JWT 기반 로그인 (세션리스)
@@ -25,7 +25,7 @@ Rbac 모델과 권한 전략
 
 PostgreSQL Ddl 설계
 아래 스키마는 확장 가능한 RBAC를 위해 정규화했으며, 메뉴/페이지별 액션 제어까지 포함합니다.
-[SQL]
+```bash [SQL]
 -- 1) 사용자/계정
 CREATE TABLE app_user (
   id            BIGSERIAL PRIMARY KEY,
@@ -152,9 +152,10 @@ CREATE TABLE audit_log (
   details     JSONB,
   occurred_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
+```
 
 초기 시드 데이터 예시:
-[SQL]
+```bash [SQL]
 -- 예시 권한
 INSERT INTO permission(resource_key, action_key, description) VALUES
 ('inventory', 'VIEW', '재고 화면 보기'),
@@ -204,7 +205,7 @@ INSERT INTO menu_required_role(menu_id, role_id)
 SELECT (SELECT id FROM menu WHERE menu_key='MENU_INVENTORY'), r.id
 FROM role r
 WHERE r.role_key IN ('ROLE_INVENTORY_VIEWER', 'ROLE_INVENTORY_MANAGER');
-
+```
 
 Spring boot 구현 핵심
 프로젝트 의존성
@@ -216,7 +217,7 @@ Spring boot 구현 핵심
 	- flyway 또는 liquibase(DDL/마이그레이션), mapstruct(매핑), springdoc-openapi
 
 엔티티 및 JPA 매핑 예시
-[JAVA]
+```bash [JAVA]
 @Entity
 @Table(name = "app_user")
 public class AppUser {
@@ -265,10 +266,10 @@ public class Permission {
   private String resourceKey;
   private String actionKey; // VIEW, QUERY, SAVE, EXPORT_XLS, IMPORT_XLS
 }
-
+```
 
 Security 설정 (JWT + 권한 매핑)
-[JAVA]
+```bash [JAVA]
 @Configuration
 @EnableMethodSecurity // @PreAuthorize 사용
 public class SecurityConfig {
@@ -298,7 +299,7 @@ public class SecurityConfig {
     };
   }
 }
-
+```
 
 권한 로딩 서비스 예시:
 [JAVA]
