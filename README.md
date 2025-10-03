@@ -1,7 +1,7 @@
 # System architecture overview
 
  관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다.
- 
+
  백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
  
 • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
@@ -16,32 +16,26 @@
 ### 권한을 “메뉴 접근”과 “버튼/액션” 두 층으로 분리합니다. 메뉴는 네비게이션 접근 통제, 액션은 화면 내 기능 제어에 사용합니다.
  
 • Label: 사용자
- 
  - User는 하나 이상의 RoleGroup에 속하며, 직접 Role를 가질 수도 있습니다.
 	
 • Label: 권한 단위
- 
  - Permission은 “리소스 + 액션”을 표현합니다. 예: resource=“inventory”, action=“SAVE”
 	
 • Label: 역할
-
  - Role은 여러 Permission을 묶은 추상화입니다. 예: ROLE_INVENTORY_MANAGER
 	
 • Label: 권한그룹
-
  - RoleGroup은 프로젝트/조직별 묶음. User ↔ RoleGroup ↔ Role ↔ Permission 체인으로 확장성 확보.
 	
 • Label: 메뉴
-
  - Menu는 계층 구조(parent_id). 각 Menu에 접근에 필요한 최소 Role 또는 Permission을 연결합니다.
 	
 • Label: 화면 액션
-
  - PageAction은 특정 page_key에서 사용할 수 있는 버튼/기능 키 목록입니다. Role/Permission과 매핑하여 노출/비노출을 제어합니다.
 
 
-PostgreSQL Ddl 설계
-아래 스키마는 확장 가능한 RBAC를 위해 정규화했으며, 메뉴/페이지별 액션 제어까지 포함합니다.
+## 🚀 PostgreSQL Ddl 설계
+### 아래 스키마는 확장 가능한 RBAC를 위해 정규화했으며, 메뉴/페이지별 액션 제어까지 포함합니다.
 ```bash [SQL]
 -- 1) 사용자/계정
 CREATE TABLE app_user (
@@ -171,7 +165,7 @@ CREATE TABLE audit_log (
 );
 ```
 
-초기 시드 데이터 예시:
+### 초기 시드 데이터 예시:
 ```bash [SQL]
 -- 예시 권한
 INSERT INTO permission(resource_key, action_key, description) VALUES
@@ -224,16 +218,17 @@ FROM role r
 WHERE r.role_key IN ('ROLE_INVENTORY_VIEWER', 'ROLE_INVENTORY_MANAGER');
 ```
 
-Spring boot 구현 핵심
-프로젝트 의존성
+## 🚀 Spring boot 구현 핵심
+### 프로젝트 의존성
 • Label: 필수
 	- spring-boot-starter-web, spring-boot-starter-security, 
 		spring-boot-starter-data-jpa, postgresql, 
 		jjwt(또는 spring-boot-starter-oauth2-resource-server)
+
 • Label: 선택
 	- flyway 또는 liquibase(DDL/마이그레이션), mapstruct(매핑), springdoc-openapi
 
-엔티티 및 JPA 매핑 예시
+### 엔티티 및 JPA 매핑 예시
 ```bash [JAVA]
 @Entity
 @Table(name = "app_user")
@@ -285,7 +280,7 @@ public class Permission {
 }
 ```
 
-Security 설정 (JWT + 권한 매핑)
+## 🚀 Security 설정 (JWT + 권한 매핑)
 ```bash [JAVA]
 @Configuration
 @EnableMethodSecurity // @PreAuthorize 사용
@@ -318,7 +313,7 @@ public class SecurityConfig {
 }
 ```
 
-권한 로딩 서비스 예시:
+### 권한 로딩 서비스 예시:
 ```bash [JAVA]
 @Service
 public class UserAuthorityService {
@@ -363,8 +358,8 @@ public class UserAuthorityService {
 ```
 
 
-메서드 보안과 커스텀 PermissionEvaluator
-버튼 단위 제어를 위해 화면(page_key)와 action_key를 검사하는 서비스 메서드를 제공합니다.
+## 🚀 메서드 보안과 커스텀 PermissionEvaluator
+### 버튼 단위 제어를 위해 화면(page_key)와 action_key를 검사하는 서비스 메서드를 제공합니다.
 ```bash [JAVA]
 @Component("authz")
 public class PageAuthorizationService {
@@ -408,7 +403,7 @@ public class PageAuthorizationService {
 ```
 
 
-컨트롤러 예시:
+### 컨트롤러 예시:
 ```bash [JAVA]
 @RestController
 @RequestMapping("/inventory")
@@ -433,7 +428,7 @@ public class InventoryController {
 ```
 
 
-메뉴 API 예시(프런트가 네비게이션 구성에 사용):
+### 메뉴 API 예시(프런트가 네비게이션 구성에 사용):
 ```bash [JAVA]
 @RestController
 @RequestMapping("/menus")
@@ -448,7 +443,7 @@ public class MenuController {
 ```
 
 
-허용 액션 조회 API 예시(화면 진입 시 호출):
+### 허용 액션 조회 API 예시(화면 진입 시 호출):
 ```bash [JAVA]
 @RestController
 @RequestMapping("/pages")
@@ -463,25 +458,33 @@ public class PageController {
 ```
 
 
-프런트엔드 연동 포인트
-• Label: 메뉴 렌더링
-	- /menus 호출로 “접근 가능한 메뉴”만 표시. 라우팅 진입 전 가드에서도 재검증하면 안전합니다.
-• Label: 버튼 노출
-	- 화면 마운트 시 /pages/{pageKey}/actions 호출로 허용 액션 세트를 받아 버튼 가시성 제어.
-• Label: 이중 방어
-	- 프런트에서 버튼을 숨기더라도 백엔드가 최종 인가를 강제합니다(@PreAuthorize로 서버-사이드 검증).
+### 프런트엔드 연동 포인트
 
-운영 팁과 마이그레이션
+• Label: 메뉴 렌더링
+ - /menus 호출로 “접근 가능한 메뉴”만 표시. 라우팅 진입 전 가드에서도 재검증하면 안전합니다.
+
+• Label: 버튼 노출
+ - 화면 마운트 시 /pages/{pageKey}/actions 호출로 허용 액션 세트를 받아 버튼 가시성 제어.
+
+• Label: 이중 방어
+ - 프런트에서 버튼을 숨기더라도 백엔드가 최종 인가를 강제합니다(@PreAuthorize로 서버-사이드 검증).
+
+### 운영 팁과 마이그레이션
+
 • Label: 마이그레이션
-	- Flyway/Liquibase로 DDL 관리, 시드 데이터는 별도 마이그레이션 파일로 분리합니다.
+ - Flyway/Liquibase로 DDL 관리, 시드 데이터는 별도 마이그레이션 파일로 분리합니다.
+
 • Label: 캐싱
-	- 권한/메뉴/페이지 액션은 변경이 빈번하지 않으므로 Caffeine/Redis 캐시로 응답 속도 개선.
+ - 권한/메뉴/페이지 액션은 변경이 빈번하지 않으므로 Caffeine/Redis 캐시로 응답 속도 개선.
+
 • Label: 감사 로그
-	- 권한 실패/성공 이벤트를 audit_log에 기록해 보안 점검과 이슈 분석에 활용.
+ - 권한 실패/성공 이벤트를 audit_log에 기록해 보안 점검과 이슈 분석에 활용.
+
 • Label: 관리자 도구
-	- Role/Permission/RoleGroup 편집용 관리 화면을 제공하면 운영 효율이 크게 올라갑니다.
+ - Role/Permission/RoleGroup 편집용 관리 화면을 제공하면 운영 효율이 크게 올라갑니다.
 
 원하는 코드 스택(Spring Boot 버전, JWT 대신 세션 사용 여부, 프런트 프레임워크 등)을 알려주시면, 
+
 위 설계를 기반으로 구체적인 패키지 구조, DTO, 리포지토리, 서비스 계층 코드까지 이어서 맞춤 샘플을 작성해 드릴게요.
 
 
