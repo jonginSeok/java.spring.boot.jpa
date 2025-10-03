@@ -6,7 +6,7 @@ package com.ngins.spring.jpa.postgresql.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Training_trainingsession;
+import com.ngins.spring.jpa.postgresql.jpa.entity.AppUser;
 import com.ngins.spring.jpa.postgresql.jpa.repository.TrainingsessionRepogitory;
 
 /**
@@ -19,7 +19,7 @@ public class JpaTrainingSessionDao {
 	private TrainingsessionRepogitory trainingsessionRepogitory;
 	
 	
-	public Training_trainingsession getTrainingsessionById(long id ){
+	public AppUser getTrainingsessionById(long id ){
 		return trainingsessionRepogitory.getReferenceById(id);
 	}
 

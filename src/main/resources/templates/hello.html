@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Hello Thymeleaf</title>
+	<meta charset="UTF-8">
+	<title>Hello Thymeleaf</title>
 </head>
+
 <body>
-    <h1 th:text="'안녕하세요, ' + ${name} + '님!'">기본 텍스트</h1>
+	<h1 th:text="'안녕하세요, ' + ${name} + '님!'">기본 텍스트</h1>
 
-    <!-- 조건문 -->
-    <div th:if="${isLogin}">로그인 상태입니다.</div>
-    <div th:unless="${isLogin}">로그아웃 상태입니다.</div>
+	<!-- 조건문 -->
+	<div th:if="${isLogin}">로그인 상태입니다.</div>
+	<div th:unless="${isLogin}">로그아웃 상태입니다.</div>
 
-    <!-- 반복문 -->
-    <ul>
-        <li th:each="item : ${items}" th:text="${item}"></li>
-    </ul>
+	<!-- 반복문 -->
+	<ul>
+		<li th:each="item : ${items}" th:text="${item}"></li>
+	</ul>
 
-    <!-- 링크 -->
-    <a th:href="@{/welcome(user=${name})}">환영 페이지로 이동</a>
+	<!-- 링크 -->
+	<a th:href="@{/welcome(user=${name})}">환영 페이지로 이동</a>
 </body>
+
 </html>

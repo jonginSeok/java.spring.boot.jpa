@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Training_trainingsession;
+import com.ngins.spring.jpa.postgresql.jpa.entity.AppUser;
 import com.ngins.spring.jpa.postgresql.jpa.repository.TrainingsessionRepogitory;
 
 /**
@@ -32,9 +32,9 @@ public class TrainingsessionController {
 	TrainingsessionRepogitory trainingsessionRepogitory;
 
 	@GetMapping("/training/trainingsession")
-	public ResponseEntity<List<Training_trainingsession>> getAllTrainingsessions(@RequestParam(required = false) Long id) {
+	public ResponseEntity<List<AppUser>> getAllTrainingsessions(@RequestParam(required = false) Long id) {
 
-		List<Training_trainingsession> trainingsessions;
+		List<AppUser> trainingsessions;
 
 		try {
 			logger.info("데이터 id:{}", id);
@@ -42,7 +42,7 @@ public class TrainingsessionController {
 				trainingsessions = trainingsessionRepogitory.findAll();
 
 			} else {
-				Optional<Training_trainingsession> trainingsession = trainingsessionRepogitory.findById(id);
+				Optional<AppUser> trainingsession = trainingsessionRepogitory.findById(id);
 				trainingsessions = trainingsession.map(Collections::singletonList) // 값이 있으면 리스트로 감싸기
 						.orElse(Collections.emptyList()); // 없으면 빈 리스트 반환
 			}

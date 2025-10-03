@@ -1,4 +1,28 @@
 
+
+/* ====================== VSCODE config ======================= */
+    "launch": {
+
+        "configurations": [],
+        "compounds": []
+    },
+    "workbench.startupEditor": "none",
+    "java.jdt.ls.java.home": "",
+
+    "java.configuration.runtimes": [
+        {
+            "name": "JavaSE-1.8",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-8.0.352.8-hotspot"
+        },
+        {
+            "name": "JavaSE-11",
+            "path": "C:\\Program Files\\Eclipse Adoptium\\jdk-11.0.17.8-hotspot",
+            "default": true
+        }
+    ]
+}
+/* ====================== VSCODE config ======================= */
+    
 /* ====================== Lombok Start ======================= */
 Project Lombok v1.18.38 - Installer
 

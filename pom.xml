@@ -117,6 +117,14 @@
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
+		
+		<!-- DB : postgreSQL, column type : jsonb -->
+		<dependency>
+		  <groupId>com.vladmihalcea</groupId>
+		  <artifactId>hibernate-types-52</artifactId>
+		  <version>2.10.4</version>
+		</dependency>
+
 
 		<!-- Console Color -->
 		<!--<dependency>
