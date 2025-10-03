@@ -1,16 +1,16 @@
 # System architecture overview
 
- 관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다.
+##### 관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다.
 
- 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
+##### 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
  
-• 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
+##### • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
 
-• 인증: JWT 기반 로그인 (세션리스)
+##### • 인증: JWT 기반 로그인 (세션리스)
 
-• 인가: 역할(Role) + 권한(Permission) + 권한그룹(RoleGroup)로 RBAC 구성
+##### • 인가: 역할(Role) + 권한(Permission) + 권한그룹(RoleGroup)로 RBAC 구성
 
-• UI 제어: 사용자에게 특정 화면ID(page_key)에 대한 허용 액션(action_key: SAVE, QUERY, EXPORT_XLS, IMPORT_XLS 등) 집합을 API로 제공
+##### • UI 제어: 사용자에게 특정 화면ID(page_key)에 대한 허용 액션(action_key: SAVE, QUERY, EXPORT_XLS, IMPORT_XLS 등) 집합을 API로 제공
 
 ## 🚀 Rbac 모델과 권한 전략
 ### 권한을 “메뉴 접근”과 “버튼/액션” 두 층으로 분리합니다. 메뉴는 네비게이션 접근 통제, 액션은 화면 내 기능 제어에 사용합니다.
@@ -34,7 +34,7 @@
  - PageAction은 특정 page_key에서 사용할 수 있는 버튼/기능 키 목록입니다. Role/Permission과 매핑하여 노출/비노출을 제어합니다.
 
 
-## 🚀 PostgreSQL Ddl 설계
+## 📦 PostgreSQL Ddl 설계
 ### 아래 스키마는 확장 가능한 RBAC를 위해 정규화했으며, 메뉴/페이지별 액션 제어까지 포함합니다.
 ```bash [SQL]
 -- 1) 사용자/계정
@@ -218,7 +218,7 @@ FROM role r
 WHERE r.role_key IN ('ROLE_INVENTORY_VIEWER', 'ROLE_INVENTORY_MANAGER');
 ```
 
-## 🚀 Spring boot 구현 핵심
+## 🔧 Spring boot 구현 핵심
 ### 프로젝트 의존성
 • Label: 필수
 	- spring-boot-starter-web, spring-boot-starter-security, 
@@ -280,7 +280,7 @@ public class Permission {
 }
 ```
 
-## 🚀 Security 설정 (JWT + 권한 매핑)
+## 🔐 Security 설정 (JWT + 권한 매핑)
 ```bash [JAVA]
 @Configuration
 @EnableMethodSecurity // @PreAuthorize 사용
@@ -358,7 +358,7 @@ public class UserAuthorityService {
 ```
 
 
-## 🚀 메서드 보안과 커스텀 PermissionEvaluator
+## 🛠️ 메서드 보안과 커스텀 PermissionEvaluator
 ### 버튼 단위 제어를 위해 화면(page_key)와 action_key를 검사하는 서비스 메서드를 제공합니다.
 ```bash [JAVA]
 @Component("authz")
@@ -458,7 +458,7 @@ public class PageController {
 ```
 
 
-### 프런트엔드 연동 포인트
+## 📋프런트엔드 연동 포인트
 
 • Label: 메뉴 렌더링
  - /menus 호출로 “접근 가능한 메뉴”만 표시. 라우팅 진입 전 가드에서도 재검증하면 안전합니다.
@@ -469,7 +469,7 @@ public class PageController {
 • Label: 이중 방어
  - 프런트에서 버튼을 숨기더라도 백엔드가 최종 인가를 강제합니다(@PreAuthorize로 서버-사이드 검증).
 
-### 운영 팁과 마이그레이션
+## 🗂️ 운영 팁과 마이그레이션
 
 • Label: 마이그레이션
  - Flyway/Liquibase로 DDL 관리, 시드 데이터는 별도 마이그레이션 파일로 분리합니다.
@@ -488,4 +488,4 @@ public class PageController {
 위 설계를 기반으로 구체적인 패키지 구조, DTO, 리포지토리, 서비스 계층 코드까지 이어서 맞춤 샘플을 작성해 드릴게요.
 
 
-
+🚀📊🎯📈🔧📋🗂️🎨📦🔌🛠️📱🔐🤝🎉
