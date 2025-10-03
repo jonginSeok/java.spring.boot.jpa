@@ -1,26 +1,43 @@
 # System architecture overview
 
-    관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다. 
-    백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
+ 관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다.
+ 
+ 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
+ 
 • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
+
 • 인증: JWT 기반 로그인 (세션리스)
+
 • 인가: 역할(Role) + 권한(Permission) + 권한그룹(RoleGroup)로 RBAC 구성
+
 • UI 제어: 사용자에게 특정 화면ID(page_key)에 대한 허용 액션(action_key: SAVE, QUERY, EXPORT_XLS, IMPORT_XLS 등) 집합을 API로 제공
 
-Rbac 모델과 권한 전략
-권한을 “메뉴 접근”과 “버튼/액션” 두 층으로 분리합니다. 메뉴는 네비게이션 접근 통제, 액션은 화면 내 기능 제어에 사용합니다.
+## 🚀 Rbac 모델과 권한 전략
+### 권한을 “메뉴 접근”과 “버튼/액션” 두 층으로 분리합니다. 메뉴는 네비게이션 접근 통제, 액션은 화면 내 기능 제어에 사용합니다.
+ 
 • Label: 사용자
-	- User는 하나 이상의 RoleGroup에 속하며, 직접 Role를 가질 수도 있습니다.
+ 
+ - User는 하나 이상의 RoleGroup에 속하며, 직접 Role를 가질 수도 있습니다.
+	
 • Label: 권한 단위
-	- Permission은 “리소스 + 액션”을 표현합니다. 예: resource=“inventory”, action=“SAVE”
+ 
+ - Permission은 “리소스 + 액션”을 표현합니다. 예: resource=“inventory”, action=“SAVE”
+	
 • Label: 역할
-	- Role은 여러 Permission을 묶은 추상화입니다. 예: ROLE_INVENTORY_MANAGER
+
+ - Role은 여러 Permission을 묶은 추상화입니다. 예: ROLE_INVENTORY_MANAGER
+	
 • Label: 권한그룹
-	- RoleGroup은 프로젝트/조직별 묶음. User ↔ RoleGroup ↔ Role ↔ Permission 체인으로 확장성 확보.
+
+ - RoleGroup은 프로젝트/조직별 묶음. User ↔ RoleGroup ↔ Role ↔ Permission 체인으로 확장성 확보.
+	
 • Label: 메뉴
-	- Menu는 계층 구조(parent_id). 각 Menu에 접근에 필요한 최소 Role 또는 Permission을 연결합니다.
+
+ - Menu는 계층 구조(parent_id). 각 Menu에 접근에 필요한 최소 Role 또는 Permission을 연결합니다.
+	
 • Label: 화면 액션
-	- PageAction은 특정 page_key에서 사용할 수 있는 버튼/기능 키 목록입니다. Role/Permission과 매핑하여 노출/비노출을 제어합니다.
+
+ - PageAction은 특정 page_key에서 사용할 수 있는 버튼/기능 키 목록입니다. Role/Permission과 매핑하여 노출/비노출을 제어합니다.
 
 
 PostgreSQL Ddl 설계
@@ -302,7 +319,7 @@ public class SecurityConfig {
 ```
 
 권한 로딩 서비스 예시:
-[JAVA]
+```bash [JAVA]
 @Service
 public class UserAuthorityService {
 
@@ -343,12 +360,12 @@ public class UserAuthorityService {
     return "PERM_" + p.getResourceKey() + ":" + p.getActionKey();
   }
 }
-
+```
 
 
 메서드 보안과 커스텀 PermissionEvaluator
 버튼 단위 제어를 위해 화면(page_key)와 action_key를 검사하는 서비스 메서드를 제공합니다.
-[JAVA]
+```bash [JAVA]
 @Component("authz")
 public class PageAuthorizationService {
 
@@ -388,11 +405,11 @@ public class PageAuthorizationService {
     return "PERM_" + p.getResourceKey() + ":" + p.getActionKey();
   }
 }
-
+```
 
 
 컨트롤러 예시:
-[JAVA]
+```bash [JAVA]
 @RestController
 @RequestMapping("/inventory")
 public class InventoryController {
@@ -413,11 +430,11 @@ public class InventoryController {
   @PreAuthorize("@authz.canPerform(authentication, 'PAGE_INVENTORY_LIST', 'IMPORT_XLS')")
   public ImportResult importXls(...) { ... }
 }
-
+```
 
 
 메뉴 API 예시(프런트가 네비게이션 구성에 사용):
-[JAVA]
+```bash [JAVA]
 @RestController
 @RequestMapping("/menus")
 public class MenuController {
@@ -428,11 +445,11 @@ public class MenuController {
     // 메뉴에 요구되는 Role/Permission과 교집합이 있는지 검사해서 필터링
   }
 }
-
+```
 
 
 허용 액션 조회 API 예시(화면 진입 시 호출):
-[JAVA]
+```bash [JAVA]
 @RestController
 @RequestMapping("/pages")
 public class PageController {
@@ -443,7 +460,7 @@ public class PageController {
     // 예: {"QUERY","SAVE","EXPORT_XLS"}
   }
 }
-
+```
 
 
 프런트엔드 연동 포인트
@@ -466,3 +483,6 @@ public class PageController {
 
 원하는 코드 스택(Spring Boot 버전, JWT 대신 세션 사용 여부, 프런트 프레임워크 등)을 알려주시면, 
 위 설계를 기반으로 구체적인 패키지 구조, DTO, 리포지토리, 서비스 계층 코드까지 이어서 맞춤 샘플을 작성해 드릴게요.
+
+
+
