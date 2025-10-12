@@ -12,7 +12,7 @@
 	<groupId>com.ngins.spring.jpa.postgresql</groupId>
 	<artifactId>spring-boot-jpa-postgresql</artifactId>
 	<version>0.0.1</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>spring-boot-jpa-postgresql</name>
 	<description>ngins JPA project for Spring Boot</description>
 	<url />
@@ -146,7 +146,14 @@
 		    <version>2.0.17</version>
 		</dependency>-->
 
-	</dependencies>
+	
+   <dependency>
+     <groupId>com.fasterxml.jackson.datatype</groupId>
+     <artifactId>jackson-datatype-jsr310</artifactId>
+     <version>2.10.0.pr1</version>
+   </dependency>
+ 
+ </dependencies>
 
 	<build>
 		<plugins>

@@ -16,15 +16,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-//@Entity
+// @Entity
 @Embeddable
 @Table(name = "user_role")
 public class UserRole {
 
-	@Column(nullable = false)
-	private long user_id;
+	@Column(name = "user_id", nullable = false)
+	private long userId;
 
-	@Column(nullable = false)
-	private long role_id;
-	
+	@Column(name = "role_id", nullable = false)
+	private long roleId;
+
 }

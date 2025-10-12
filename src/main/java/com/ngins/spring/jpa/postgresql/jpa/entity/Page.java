@@ -25,16 +25,16 @@ public class Page {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
+	@Column(name = "id", nullable = false)
 	private long id;
 
-	@Column(length = 120, nullable = false)
-	private String page_key;
+	@Column(name = "page_key", length = 120, nullable = false)
+	private String pageKey;
 
 	@Column(name = "name", length = 120, nullable = false)
 	private String name;
 
-	@Column
-	private long menu_id;
+	@Column(name = "menu_id")
+	private long menuId;
 
 }

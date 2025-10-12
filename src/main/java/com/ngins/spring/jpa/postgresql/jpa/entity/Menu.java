@@ -29,22 +29,22 @@ public class Menu {
 	private long id;
 
 	@Column(name = "menu_key", length = 100, nullable = false)
-	private String menu_key;
+	private String menuKey;
 
-	@Column(length = 100, nullable = false)
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
-	@Column(length = 255)
+	@Column(name = "path", length = 255)
 	private String path;
 
-	@Column
-	private long parent_id;
-
-	@Column(nullable = false, columnDefinition = "Integer default 0")
-	private Integer display_order;
+	@Column(name = "parent_id")
+	private long parentId;
 
 	// columnDefinition 속성은 PostgreSQL에서만 동작
-	@Column(nullable = false, columnDefinition = "boolean default true")
-	private boolean is_enabled;
+	@Column(name = "display_order", nullable = false, columnDefinition = "int default 0")
+	private int displayOrder;
+
+	@Column(name = "is_enabled", nullable = false, columnDefinition = "boolean default true")
+	private boolean isEnabled;
 
 }

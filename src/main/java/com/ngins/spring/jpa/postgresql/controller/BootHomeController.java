@@ -9,12 +9,8 @@ public class BootHomeController {
 
 	@GetMapping("/")
 	public String home(Model model) {
-		return "index";
+		
+		return "index3";
 	}
-
-//	@GetMapping("/error")
-//	public String error() {
-//		return "index";
-//	}
 
 }

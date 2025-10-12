@@ -28,13 +28,13 @@ public class PageAction {
 	@Column(nullable = false)
 	private long id;
 
-	@Column(nullable = false)
-	private long page_key;
+	@Column(name = "page_id", nullable = false)
+	private long pageId;
 
-	@Column(length = 120, nullable = false)
-	private String name;
+	@Column(name = "action_key", length = 120, nullable = false)
+	private String actionKey;
 
-	@Column(length = 255)
-	private long menu_id;
+	@Column(name = "description", length = 255)
+	private String description;
 
 }

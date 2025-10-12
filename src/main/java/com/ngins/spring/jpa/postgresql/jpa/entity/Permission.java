@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 
+ * 엔티티 및 JPA 매핑 예시
  */
 @Getter
 @Setter
@@ -29,10 +29,10 @@ public class Permission {
 	private long id;
 
 	@Column(name = "resource_key", length = 100, nullable = false)
-	private long resource_key;
+	private long resourceKey;
 
 	@Column(name = "action_key", length = 100, nullable = false)
-	private String action_key;
+	private String actionKey; // VIEW, QUERY, SAVE, EXPORT_XLS, IMPORT_XLS
 
 	@Column(name = "description", length = 255)
 	private String description;

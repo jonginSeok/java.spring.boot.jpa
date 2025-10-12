@@ -33,16 +33,16 @@ public class AuditLog {
 	private long id;
 
 	@Column(name = "user_id")
-	private long user_id;
+	private long userId;
 
 	@Column(name = "event", length = 200, nullable = false)
 	private String event;
 
-	@Column(columnDefinition = "jsonb")
+	@Column(name = "details", columnDefinition = "jsonb")
 	private String details;
 
 	@CreatedDate
-	@Column(nullable = false)
-	private LocalDateTime occurred_at;
+	@Column(name = "occurred_at", nullable = false)
+	private LocalDateTime occurredAt;
 
 }
