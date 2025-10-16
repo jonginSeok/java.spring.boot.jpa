@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-// @Entity
+//@Entity  // (every '@Entity' class must declare or inherit at least one '@Id' or '@EmbeddedId' property)
 @Embeddable
 @Table(name = "role_permission")
 public class RolePermission {

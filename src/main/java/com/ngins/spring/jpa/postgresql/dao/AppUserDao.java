@@ -13,7 +13,7 @@ import com.ngins.spring.jpa.postgresql.jpa.repository.AppUserRepository;
  * 
  */
 @Component
-public class JpaTrainingSessionDao {
+public class AppUserDao {
 
 	@Autowired
 	private AppUserRepository appUserRepogitory;

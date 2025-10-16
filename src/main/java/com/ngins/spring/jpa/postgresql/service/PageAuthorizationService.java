@@ -1,9 +1,13 @@
 package com.ngins.spring.jpa.postgresql.service;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import com.ngins.spring.jpa.postgresql.jpa.entity.PageAction;
 import com.ngins.spring.jpa.postgresql.jpa.entity.Permission;
+import com.ngins.spring.jpa.postgresql.jpa.entity.Role;
 import com.ngins.spring.jpa.postgresql.jpa.repository.PageActionRepository;
 import com.ngins.spring.jpa.postgresql.jpa.repository.PermissionRepository;
 
@@ -14,49 +18,49 @@ import com.ngins.spring.jpa.postgresql.jpa.repository.PermissionRepository;
 @Component("authz")
 public class PageAuthorizationService {
 
-    private final PageActionRepository pageActionRepo;
-    private final PermissionRepository permissionRepo;
+	private final PageActionRepository pageActionRepo;
 
-    public PageAuthorizationService(PageActionRepository pageActionRepo, PermissionRepository permissionRepo) {
-        this.pageActionRepo = pageActionRepo;
-        this.permissionRepo = permissionRepo;
-    }
+	@SuppressWarnings("unused")
+	private final PermissionRepository permissionRepo;
 
-    public boolean canPerform(Authentication auth, String pageKey, String actionKey) {
-        if (isAdmin(auth))
-            return true;
+	public PageAuthorizationService(PageActionRepository pageActionRepo, PermissionRepository permissionRepo) {
+		this.pageActionRepo = pageActionRepo;
+		this.permissionRepo = permissionRepo;
+	}
 
-        // page_key + action_key에 매핑된 Permission 또는 Role을 보유하는지 검사
-        Object actions = pageActionRepo.findByPageKeyAndActionKey(pageKey, actionKey);
-        if (actions == null || actions.isEmpty())
-            return false;
+	public boolean canPerform(Authentication auth, String pageKey, String actionKey) {
+		if (isAdmin(auth))
+			return true;
 
-        for (var pa : actions) {
-            // Permission 검사
-            var perms = pa.getPermissions().stream()
-                    .map(this::permAuthorityKey)
-                    .toList();
-            for (var a : auth.getAuthorities()) {
-                if (perms.contains(a.getAuthority()))
-                    return true;
-            }
-            // Role 검사
-            var roles = pa.getRoles().stream().map(Role::getRoleKey).toList();
-            for (var a : auth.getAuthorities()) {
-                if (roles.contains(a.getAuthority()))
-                    return true;
-            }
-        }
-        return false;
-    }
+		// page_key + action_key 에 매핑된 Permission 또는 Role 을 보유하는지 검사
+		List<PageAction> actions = pageActionRepo.findByPageKeyAndActionKey(pageKey, actionKey);
+		if (actions.isEmpty())
+			return false;
 
-    private boolean isAdmin(Authentication auth) {
-        return auth.getAuthorities().stream()
-                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-    }
+		for (var pa : actions) { // pageAction
+			// Permission 검사
+			var perms = pa.getPermissions().stream().map(this::permAuthorityKey).toList();
+			for (var a : auth.getAuthorities()) {
+				if (perms.contains(a.getAuthority()))
+					return true;
+			}
+			// Role 검사
+			var roles = pa.getRoles().stream().map(Role::getRoleKey).toList();
+			// Java 10부터 도입된 지역 변수 타입 추론 기능
+			for (var a : auth.getAuthorities()) {
+				if (roles.contains(a.getAuthority()))
+					return true;
+			}
+		}
+		return false;
+	}
 
-    private String permAuthorityKey(Permission p) {
-        return "PERM_" + p.getResourceKey() + ":" + p.getActionKey();
-    }
+	private boolean isAdmin(Authentication auth) {
+		return auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+	}
+
+	private String permAuthorityKey(Permission p) {
+		return "PERM_" + p.getResourceKey() + ":" + p.getActionKey();
+	}
 
 }

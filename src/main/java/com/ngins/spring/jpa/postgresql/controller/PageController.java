@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/pages")
 public class PageController {
+    
     @GetMapping("/{pageKey}/actions")
     public Set<String> allowedActions(Authentication auth, @PathVariable String pageKey) {
         

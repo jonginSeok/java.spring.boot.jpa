@@ -39,7 +39,6 @@ public class RoleGroup {
 	@Column(name = "description", length = 255)
 	private String description;
 
-	// 
 	private List<Role> roles;
 
 }

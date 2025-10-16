@@ -11,6 +11,7 @@ public class HelloController {
 
 	@GetMapping("/hello")
 	public String hello(Model model) {
+		
 		model.addAttribute("name", "홍길동");
 		model.addAttribute("isLogin", true);
 		model.addAttribute("items", Arrays.asList("사과", "바나나", "포도"));

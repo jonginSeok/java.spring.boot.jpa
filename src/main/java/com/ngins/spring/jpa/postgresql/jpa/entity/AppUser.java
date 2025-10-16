@@ -5,7 +5,6 @@ package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -20,16 +19,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * 엔티티 및 JPA 매핑 예시
  */
-@Getter
-@Setter
+//@Getter
+//@Setter
+
+@Data
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "app_user")
@@ -38,7 +41,7 @@ public class AppUser {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(nullable = false)
-	private long id;
+	private Long id;
 
 	@Column(name = "username", length = 100, nullable = false)
 	private String username;
@@ -50,10 +53,10 @@ public class AppUser {
 	private String passwordHash;
 
 	@Column(name = "is_active", nullable = false)
-	private boolean isActive;
+	private Boolean isActive;
 
 	@Column(name = "is_admin", nullable = false)
-	private boolean isAdmin;
+	private Boolean isAdmin;
 
 	@CreatedDate
 	@Column(name = "created_at", nullable = false)
@@ -77,6 +80,11 @@ public class AppUser {
 		this.passwordHash = passwordHash;
 		this.roles = roles;
 		this.roleGroups = roleGroups;
+	}
+
+	public boolean isAdmin() {
+		// TODO Auto-generated method stub
+		return this.isAdmin;
 	}
 
 }

@@ -3,6 +3,8 @@
  */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,5 +38,9 @@ public class PageAction {
 
 	@Column(name = "description", length = 255)
 	private String description;
+	
+	private List<Permission> Permissions;
+	
+	private List<Role> roles;
 
 }
