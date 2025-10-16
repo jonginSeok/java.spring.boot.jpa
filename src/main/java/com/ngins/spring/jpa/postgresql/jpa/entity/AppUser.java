@@ -83,7 +83,6 @@ public class AppUser {
 	}
 
 	public boolean isAdmin() {
-		// TODO Auto-generated method stub
 		return this.isAdmin;
 	}
 

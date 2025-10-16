@@ -16,7 +16,7 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
 	public JwtAuthenticationToken(Jwt token, @Nullable Collection<? extends GrantedAuthority> authorities) {
 		super(authorities);
-		// TODO Auto-generated constructor stub
+		// this.setAuthenticated(true);
 	}
 
 	@Override

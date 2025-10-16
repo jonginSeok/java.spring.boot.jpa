@@ -3,11 +3,7 @@
  */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -43,8 +39,8 @@ public class Permission {
 	
 //	@ElementCollection
 //    @CollectionTable(name = "role_permission", joinColumns = @JoinColumn(name = "permission_id"))
-	@Embedded
-	private List<RolePermission> roles= new ArrayList<>();
+	// @Embedded
+	// private List<RolePermission> roles= new ArrayList<>();
 
 }
 
