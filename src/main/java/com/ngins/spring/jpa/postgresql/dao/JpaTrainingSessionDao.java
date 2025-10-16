@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ngins.spring.jpa.postgresql.jpa.entity.AppUser;
-import com.ngins.spring.jpa.postgresql.jpa.repository.AppUserRepogitory;
+import com.ngins.spring.jpa.postgresql.jpa.repository.AppUserRepository;
 
 /**
  * 
@@ -16,7 +16,7 @@ import com.ngins.spring.jpa.postgresql.jpa.repository.AppUserRepogitory;
 public class JpaTrainingSessionDao {
 
 	@Autowired
-	private AppUserRepogitory appUserRepogitory;
+	private AppUserRepository appUserRepogitory;
 
 	public AppUser getAppUserById(long id) {
 		return appUserRepogitory.getReferenceById(id);
