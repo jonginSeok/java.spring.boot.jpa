@@ -1,26 +1,17 @@
 package com.ngins.spring.jpa.postgresql.config;
 
-import java.util.Collection;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.ngins.spring.jpa.postgresql.jwt.JwtAuthenticationToken;
-import com.ngins.spring.jpa.postgresql.service.UserAuthorityService;
-
 @Configuration
-@EnableWebSecurity // @PreAuthorize 사용
+@EnableWebSecurity 
+// @PreAuthorize 사용
 public class SecurityConfig {
 
 //	@Bean
@@ -46,31 +37,40 @@ public class SecurityConfig {
 //		};
 //	}
 
-	@Bean
-	public Converter<Jwt, AbstractAuthenticationToken> jwtAuthenticationConverter(
-			UserAuthorityService authorityService) {
-		return new Converter<Jwt, AbstractAuthenticationToken>() {
-			@Override
-			public AbstractAuthenticationToken convert(Jwt token) {
-				String username = token.getClaimAsString("sub");
-				// Collection<GrantedAuthority> authorities =
-				// authorityService.loadAuthorities(username);
-				Collection<SimpleGrantedAuthority> authorities = authorityService.loadAuthorities(username);
-				return new JwtAuthenticationToken(token, authorities);
-			}
-		};
-	}
+	/*
+	 * @Bean Converter<Jwt, AbstractAuthenticationToken>
+	 * jwtAuthenticationConverter(UserAuthorityService authorityService) {
+	 * 
+	 * return new Converter<Jwt, AbstractAuthenticationToken>() {
+	 * 
+	 * @Override public AbstractAuthenticationToken convert(Jwt token) { String
+	 * username = token.getClaimAsString("sub"); // Collection<GrantedAuthority>
+	 * authorities = // authorityService.loadAuthorities(username);
+	 * Collection<SimpleGrantedAuthority> authorities =
+	 * authorityService.loadAuthorities(username); return new
+	 * JwtAuthenticationToken(token, authorities); } }; }
+	 */
 
-	// 패스워드 암호화 관련 메소드
+	/**
+	 * 패스워드 암호화 관련 메소드
+	 * @return
+	 */
 	@Bean
-	public PasswordEncoder passwordEncoder() {
+	PasswordEncoder passwordEncoder() {
+		
 		return new BCryptPasswordEncoder();
 	}
 
-	// 특정 HTTP 요청에 대한 웹 기반 보안 구성
-	// 시큐리티 대부분의 설정을 담당하는 메소드
+	/**
+	 * 특정 HTTP 요청에 대한 웹 기반 보안 구성
+	 * 시큐리티 대부분의 설정을 담당하는 메소드
+	 * @param http
+	 * @return
+	 * @throws Exception
+	 */
 	@Bean
-	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		
 		http.csrf(AbstractHttpConfigurer::disable)
 			.httpBasic(AbstractHttpConfigurer::disable)
 			.authorizeHttpRequests(
@@ -97,9 +97,7 @@ public class SecurityConfig {
 					.maxSessionsPreventsLogin(true)
 					
 				// .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-				)
-
-		;
+			);
 
 		return http.build();
 
