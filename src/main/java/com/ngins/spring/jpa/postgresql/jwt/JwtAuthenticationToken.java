@@ -21,13 +21,11 @@ public class JwtAuthenticationToken extends AbstractAuthenticationToken {
 
 	@Override
 	public @Nullable Object getCredentials() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public @Nullable Object getPrincipal() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

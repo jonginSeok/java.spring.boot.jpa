@@ -18,173 +18,50 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 엔티티 및 JPA 매핑 예시
  */
+@Getter
+@Setter
 @Entity
-@Table(name = "app_user")
+@Table(name = "tbl_app_user", comment = "앱사용자")
 public class AppUser {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
+	@Column(name = "id", nullable = false, comment = "앱사용자ID")
 	private Long id;
 
-	@Column(name = "username", length = 100, nullable = false)
+	@Column(name = "username", length = 100, nullable = false, comment = "사용자이름")
 	private String username;
 
-	@Column(name = "email", length = 255)
+	@Column(name = "email", length = 255, comment = "이메일")
 	private String email;
 
-	@Column(name = "password_hash", length = 255, nullable = false)
+	@Column(name = "password_hash", length = 255, nullable = false, comment = "암호해쉬")
 	private String passwordHash;
 
-	@Column(name = "is_active", nullable = false)
+	@Column(name = "is_active", nullable = false, comment = "활성여부")
 	private Boolean isActive;
 
-	@Column(name = "is_admin", nullable = false)
+	@Column(name = "is_admin", nullable = false, comment = "관리자여부")
 	private Boolean isAdmin;
 
 	@CreatedDate
-	@Column(name = "created_at", nullable = false)
+	@Column(name = "created_at", nullable = false, comment = "생성일시")
 	private LocalDateTime createdAt;
 
 	@LastModifiedDate
-	@Column(name = "updated_at", nullable = false)
+	@Column(name = "updated_at", nullable = false, comment = "수정일시")
 	private LocalDateTime updatedAt;
 
-	@OneToMany(mappedBy = "userId", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<AuditLog> auditLogs = new ArrayList<>();
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
-	/**
-	 * @return the auditLogs
-	 */
-	public List<AuditLog> getAuditLogs() {
-		return auditLogs;
-	}
-
-	/**
-	 * @param auditLogs the auditLogs to set
-	 */
-	public void setAuditLogs(List<AuditLog> auditLogs) {
-		this.auditLogs = auditLogs;
-	}
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the username
-	 */
-	public String getUsername() {
-		return username;
-	}
-
-	/**
-	 * @param username the username to set
-	 */
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the passwordHash
-	 */
-	public String getPasswordHash() {
-		return passwordHash;
-	}
-
-	/**
-	 * @param passwordHash the passwordHash to set
-	 */
-	public void setPasswordHash(String passwordHash) {
-		this.passwordHash = passwordHash;
-	}
-
-	/**
-	 * @return the isActive
-	 */
-	public Boolean getIsActive() {
-		return isActive;
-	}
-
-	/**
-	 * @param isActive the isActive to set
-	 */
-	public void setIsActive(Boolean isActive) {
-		this.isActive = isActive;
-	}
-
-	/**
-	 * @return the isAdmin
-	 */
-//	public Boolean getIsAdmin() {
-//		return isAdmin;
-//	}
-
-	public Boolean isAdmin() {
-		return isAdmin;
-	}
-
-	/**
-	 * @param isAdmin the isAdmin to set
-	 */
-	public void setIsAdmin(Boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-
-	/**
-	 * @return the createdAt
-	 */
-	public LocalDateTime getCreatedAt() {
-		return createdAt;
-	}
-
-	/**
-	 * @param createdAt the createdAt to set
-	 */
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	/**
-	 * @return the updatedAt
-	 */
-	public LocalDateTime getUpdatedAt() {
-		return updatedAt;
-	}
-
-	/**
-	 * @param updatedAt the updatedAt to set
-	 */
-	public void setUpdatedAt(LocalDateTime updatedAt) {
-		this.updatedAt = updatedAt;
-	}
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
 
 }

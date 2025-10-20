@@ -17,101 +17,35 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
- * 
+ * 엔티티 및 JPA 매핑 예시
  */
+@Getter
+@Setter
 @Entity
-@Table(name = "audit_log")
+@Table(name = "tbl_audit_log", comment = "심사로그")
 public class AuditLog {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(nullable = false)
+	@Column(name = "id", nullable = false, comment = "심사로그ID")
 	private Long id;
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "audit_log_user_id_fkey"))
-	private AppUser userId;
+	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_audit_log_fkey1"), comment = "사용자ID")
+	private AppUser appUser;
 
-	@Column(name = "event", length = 200, nullable = false)
+	@Column(name = "event", length = 200, nullable = false, comment = "이벤트")
 	private String event;
 
-	@Column(name = "details", columnDefinition = "jsonb")
+	@Column(name = "details", columnDefinition = "JSONB", comment = "상세")
 	private String details;
 
 	@CreatedDate
-	@Column(name = "occurred_at", nullable = false)
+	@Column(name = "occurred_at", nullable = false, comment = "발생일시")
 	private LocalDateTime occurredAt;
-
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
-
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	/**
-	 * @return the userId
-	 */
-	public AppUser getUserId() {
-		return userId;
-	}
-
-	/**
-	 * @param userId the userId to set
-	 */
-	public void setUserId(AppUser userId) {
-		this.userId = userId;
-	}
-
-	/**
-	 * @return the event
-	 */
-	public String getEvent() {
-		return event;
-	}
-
-	/**
-	 * @param event the event to set
-	 */
-	public void setEvent(String event) {
-		this.event = event;
-	}
-
-	/**
-	 * @return the details
-	 */
-	public String getDetails() {
-		return details;
-	}
-
-	/**
-	 * @param details the details to set
-	 */
-	public void setDetails(String details) {
-		this.details = details;
-	}
-
-	/**
-	 * @return the occurredAt
-	 */
-	public LocalDateTime getOccurredAt() {
-		return occurredAt;
-	}
-
-	/**
-	 * @param occurredAt the occurredAt to set
-	 */
-	public void setOccurredAt(LocalDateTime occurredAt) {
-		this.occurredAt = occurredAt;
-	}
 
 }
