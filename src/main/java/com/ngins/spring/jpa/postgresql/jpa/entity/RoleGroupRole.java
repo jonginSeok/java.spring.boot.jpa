@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "role_group_role")
+@Table(name = "tbl_role_group_role")
 public class RoleGroupRole {
 
 	@EmbeddedId
