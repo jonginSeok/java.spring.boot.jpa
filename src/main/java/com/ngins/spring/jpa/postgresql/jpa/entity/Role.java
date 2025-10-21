@@ -3,20 +3,18 @@
  */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -24,7 +22,6 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
 @Table(name = "role")
 public class Role {
@@ -32,7 +29,7 @@ public class Role {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
-	private long id;
+	private Long id;
 
 	@Column(name = "role_key", length = 100, nullable = false)
 	private String roleKey;
@@ -42,9 +39,16 @@ public class Role {
 
 	@Column(name = "description", length = 255)
 	private String description;
-
-	@ManyToMany
-	@JoinTable(name = "role_permission", joinColumns = @JoinColumn(name = "role_id"), inverseJoinColumns = @JoinColumn(name = "permission_id"))
-	private Set<Permission> permissions = new HashSet<>();
-
+	
+	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
+	
+	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRole> userRoles = new ArrayList<UserRole>();
+	
+	
+	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MenuRequiredRole> menuRequiredRoles = new ArrayList<MenuRequiredRole>();
+	
+	
 }
