@@ -57,11 +57,16 @@ public class AppUser {
 	@LastModifiedDate
 	@Column(name = "updated_at", nullable = false, comment = "수정일시")
 	private LocalDateTime updatedAt;
-
-	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	
+	
+	
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
-	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRole> userRoles = new ArrayList<UserRole>();
+	
+	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
 
 }

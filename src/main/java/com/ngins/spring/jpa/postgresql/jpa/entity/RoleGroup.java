@@ -42,7 +42,11 @@ public class RoleGroup {
 	@Column(name = "description", length = 255, comment = "설명")
 	private String description;
 
-	@OneToMany(mappedBy = "roleGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "role_group_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
+	
+	@OneToMany(mappedBy = "role_group_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
+	
 
 }

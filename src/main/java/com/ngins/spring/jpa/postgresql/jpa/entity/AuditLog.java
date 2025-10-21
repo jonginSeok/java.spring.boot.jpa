@@ -36,7 +36,7 @@ public class AuditLog {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_audit_log_fkey1"), comment = "사용자ID")
-	private AppUser appUser;
+	private AppUser user_id;
 
 	@Column(name = "event", length = 200, nullable = false, comment = "이벤트")
 	private String event;

@@ -21,17 +21,17 @@ import lombok.Setter;
 @Setter
 @Entity
 @EqualsAndHashCode
-@Table(name = "tbl_user_role_group", comment = "사용자권한그룹")
-public class UserRoleGroup {
+@Table(name = "role_group_role")
+public class RoleGroupRole {
 
 	@EmbeddedId
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_group_fkey1"), comment = "사용자ID")
-	private AppUser user_id;
-
-	@EmbeddedId
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_group_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_group_fkey2"), comment = "역할그룹ID")
+	@JoinColumn(name = "role_group_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey1"), comment = "사용자ID")
 	private RoleGroup role_group_id;
+
+	@EmbeddedId
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey2"), comment = "사용자ID")
+	private Role role_id;
 
 }
