@@ -23,7 +23,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "tbl_role")
+@Table(name = "role")
 public class Role {
 
 	@Id
