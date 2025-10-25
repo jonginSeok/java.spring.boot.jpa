@@ -23,8 +23,8 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@NoArgsConstructor
 @Entity
+@NoArgsConstructor
 @Table(name = "tbl_role_group", comment = "역할그룹")
 public class RoleGroup {
 
