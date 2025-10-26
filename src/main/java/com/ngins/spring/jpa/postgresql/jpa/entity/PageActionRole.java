@@ -7,6 +7,7 @@ import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -19,8 +20,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@Entity
+@IdClass(PageActionRoleId.class)
 @Table(name = "tbl_page_action_role", comment = "페이지액션역할")
 public class PageActionRole {
 
