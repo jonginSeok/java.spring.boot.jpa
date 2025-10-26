@@ -25,7 +25,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @NoArgsConstructor
-@Table(name = "role")
+@Table(name = "tbl_role", comment = "역할")
 public class Role {
 
 	@Id
@@ -41,16 +41,14 @@ public class Role {
 
 	@Column(name = "description", length = 255)
 	private String description;
-	
-	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
-	
+
 	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRole> userRoles = new ArrayList<UserRole>();
-	
-	
+
+	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
+
 	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MenuRequiredRole> menuRequiredRoles = new ArrayList<MenuRequiredRole>();
-	
-	
+
 }

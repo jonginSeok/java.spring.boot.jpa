@@ -40,8 +40,16 @@ public class Permission {
 	@Column(name = "description", length = 255, comment = "상세")
 	private String description;
 	
-	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RolePermission> rolePermission = new ArrayList<RolePermission>();;
+	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PageActionPermission> pageActionPermissions = new ArrayList<PageActionPermission>();
+	
+	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MenuRequiredPermission> menuRequiredPermissions = new ArrayList<MenuRequiredPermission>();
+	
+	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RolePermission> rolePermissions = new ArrayList<RolePermission>();
+	
+	
 
 }
 

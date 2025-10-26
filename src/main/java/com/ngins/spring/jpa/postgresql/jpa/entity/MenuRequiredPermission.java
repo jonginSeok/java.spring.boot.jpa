@@ -10,30 +10,28 @@ import jakarta.persistence.ForeignKey;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 
  */
 @Getter
 @Setter
 @NoArgsConstructor
 @Entity
-@EqualsAndHashCode
-@Table(name = "tbl_user_role", comment = "사용자역할")
-public class UserRole {
+@Table(name = "tbl_menu_required_permission", comment = "메뉴필수허용")
+public class MenuRequiredPermission {
 
 	@EmbeddedId
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey1"), comment = "사용자ID")
-	private AppUser user_id;
+	@JoinColumn(name = "menu_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_menu_required_permission_fkey1"), comment = "메뉴ID")
+	private Menu menu_id;
 
 	@EmbeddedId
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey2"), comment = "역할ID")
-	private Role role_id;
+	@JoinColumn(name = "permission_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_menu_required_permission_fkey2"), comment = "메뉴ID")
+	private Permission permission_id;
 
 }

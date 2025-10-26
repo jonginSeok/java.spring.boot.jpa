@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -26,6 +27,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tbl_app_user", comment = "앱사용자")
 public class AppUser {
@@ -57,15 +59,13 @@ public class AppUser {
 	@LastModifiedDate
 	@Column(name = "updated_at", nullable = false, comment = "수정일시")
 	private LocalDateTime updatedAt;
-	
-	
-	
+
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
 
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRole> userRoles = new ArrayList<UserRole>();
-	
+
 	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
 
