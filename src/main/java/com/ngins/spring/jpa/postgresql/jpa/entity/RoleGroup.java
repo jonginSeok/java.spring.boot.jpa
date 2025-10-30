@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.util.ArrayList;
@@ -14,16 +11,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_role_group", comment = "역할그룹")
 public class RoleGroup {
@@ -42,11 +41,13 @@ public class RoleGroup {
 	@Column(name = "description", length = 255, comment = "설명")
 	private String description;
 
-	@OneToMany(mappedBy = "role_group_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
 	
-	@OneToMany(mappedBy = "role_group_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
 	
+	
+	@OneToMany(mappedBy = "roleGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRoleGroup> userRoleGroups = new ArrayList<>();
+
+	@OneToMany(mappedBy = "roleGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RoleGroupRole> roleGroupRoles = new ArrayList<>();
 
 }

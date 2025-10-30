@@ -228,7 +228,7 @@ WHERE r.role_key IN ('ROLE_INVENTORY_VIEWER', 'ROLE_INVENTORY_MANAGER');
 • Label: 선택
 	- flyway 또는 liquibase(DDL/마이그레이션), mapstruct(매핑), springdoc-openapi
 
-### 엔티티 및 JPA 매핑 예시
+### 엔티티 및 JPA 매핑
 ```bash [JAVA]
 @Entity
 @Table(name = "app_user")

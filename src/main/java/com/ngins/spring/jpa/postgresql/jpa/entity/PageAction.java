@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.util.ArrayList;
@@ -18,16 +15,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_page_action", comment = "페이지액션")
 public class PageAction {
@@ -37,12 +36,6 @@ public class PageAction {
 	@Column(nullable = false, comment = "페이지액션ID")
 	private Long id;
 
-
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "page_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_page_action_fkey1"), comment = "페이지ID")
-	private Page page_id;
-	
-	
 	@Column(name = "action_key", length = 120, nullable = false, comment = "액션KEY")
 	private String actionKey;
 
@@ -50,13 +43,17 @@ public class PageAction {
 	private String description;
 	
 	
-
 	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "page_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_page_action_fkey1"), comment = "페이지ID")
+	private Page page; // 언더바 가 있는 것이 불편하다.
+	
+	
+	
+	@OneToMany(mappedBy = "pageAction", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PageActionRole> pageActionRoles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "page_action_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PageActionRole> pageActionRoles = new ArrayList<PageActionRole>();
-
-	@OneToMany(mappedBy = "page_action_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PageActionPermission> pageActionPermissions = new ArrayList<PageActionPermission>();
+	@OneToMany(mappedBy = "pageAction", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PageActionPermission> pageActionPermissions = new ArrayList<>();
 
 }

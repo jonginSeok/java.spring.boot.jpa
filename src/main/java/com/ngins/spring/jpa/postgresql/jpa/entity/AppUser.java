@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.time.LocalDateTime;
@@ -18,16 +15,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_app_user", comment = "앱사용자")
 public class AppUser {
@@ -59,14 +58,18 @@ public class AppUser {
 	@LastModifiedDate
 	@Column(name = "updated_at", nullable = false, comment = "수정일시")
 	private LocalDateTime updatedAt;
+	
+	
+	
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<AuditLog> auditLogs = new ArrayList<>();
+	
+	
+	
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRole> userRoles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<AuditLog> auditLogs = new ArrayList<AuditLog>();
-
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserRole> userRoles = new ArrayList<UserRole>();
-
-	@OneToMany(mappedBy = "user_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserRoleGroup> userRoleGroups = new ArrayList<UserRoleGroup>();
+	@OneToMany(mappedBy = "appUser", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRoleGroup> userRoleGroups = new ArrayList<>();
 
 }

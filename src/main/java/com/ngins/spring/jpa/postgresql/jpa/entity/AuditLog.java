@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.time.LocalDateTime;
@@ -17,14 +14,18 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_audit_log", comment = "심사로그")
 public class AuditLog {
@@ -36,7 +37,7 @@ public class AuditLog {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false, foreignKey = @ForeignKey(name = "tbl_audit_log_fkey1"), comment = "사용자ID")
-	private AppUser user_id;
+	private AppUser appUser;
 
 	@Column(name = "event", length = 200, nullable = false, comment = "이벤트")
 	private String event;

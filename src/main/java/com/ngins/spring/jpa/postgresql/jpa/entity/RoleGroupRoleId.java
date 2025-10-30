@@ -1,12 +1,11 @@
-/**
- * 
- */
 package com.ngins.spring.jpa.postgresql.jpa.entity;
 
 import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -14,16 +13,18 @@ import lombok.Setter;
  */
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 public class RoleGroupRoleId implements Serializable {
 
 	/**
-	 * 
+	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -3062093515259606564L;
 
-	private Long role_group_id;
+	private Long roleGroupId;
 
-	private Long role_id;
+	private Long roleId;
 
 }

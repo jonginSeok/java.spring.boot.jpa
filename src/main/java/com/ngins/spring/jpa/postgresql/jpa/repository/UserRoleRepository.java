@@ -6,11 +6,12 @@ package com.ngins.spring.jpa.postgresql.jpa.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Role;
+import com.ngins.spring.jpa.postgresql.jpa.entity.UserRole;
+import com.ngins.spring.jpa.postgresql.jpa.entity.UserRoleId;
 /**
  * 
  */
 @Repository
-public interface RoleRepositiry extends JpaRepository<Role, Long> {
+public interface UserRoleRepository extends JpaRepository<UserRole, UserRoleId> {
 
 }

@@ -14,16 +14,18 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tbl_permission", comment = "허용")
 public class Permission {
@@ -41,18 +43,17 @@ public class Permission {
 
 	@Column(name = "description", length = 255, comment = "상세")
 	private String description;
-	
-	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<PageActionPermission> pageActionPermissions = new ArrayList<PageActionPermission>();
-	
-	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<MenuRequiredPermission> menuRequiredPermissions = new ArrayList<MenuRequiredPermission>();
-	
-	@OneToMany(mappedBy = "permission_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RolePermission> rolePermissions = new ArrayList<RolePermission>();
+
 	
 	
+	
+	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<PageActionPermission> pageActionPermissions = new ArrayList<>(); // Replace the type specification in this constructor call with the diamond operator ("<>").
+
+	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MenuRequiredPermission> menuRequiredPermissions = new ArrayList<>();
+
+	@OneToMany(mappedBy = "permission", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RolePermission> rolePermissions = new ArrayList<>();
 
 }
-
-

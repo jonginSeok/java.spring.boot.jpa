@@ -1,5 +1,6 @@
 package com.ngins.spring.jpa.postgresql.controller;
 
+import java.util.Collections;
 import java.util.Set;
 
 import org.springframework.security.core.Authentication;
@@ -19,9 +20,11 @@ public class PageController {
     public Set<String> allowedActions(Authentication auth, @PathVariable String pageKey) {
         
         // 해당 pageKey의 모든 action_key 중 @authz.canPerform(...)가 true인 것만 반환
-        // 예: {"QUERY","SAVE","EXPORT_XLS"}
+        /**
+         *  예: {"QUERY","SAVE","EXPORT_XLS"}
+         */
         
-        return null;
+        return Collections.emptySet(); // Ex
     }
 
 }

@@ -14,17 +14,19 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
- * 엔티티 및 JPA 매핑 예시
+ * 엔티티 및 JPA 매핑
  */
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity
 @Table(name = "tbl_role", comment = "역할")
 public class Role {
 
@@ -42,13 +44,15 @@ public class Role {
 	@Column(name = "description", length = 255)
 	private String description;
 
-	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserRole> userRoles = new ArrayList<UserRole>();
+	
+	
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRole> userRoles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<RoleGroupRole> roleGroupRoles = new ArrayList<RoleGroupRole>();
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<RoleGroupRole> roleGroupRoles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "role_id", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<MenuRequiredRole> menuRequiredRoles = new ArrayList<MenuRequiredRole>();
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MenuRequiredRole> menuRequiredRoles = new ArrayList<>();
 
 }

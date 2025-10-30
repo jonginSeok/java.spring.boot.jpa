@@ -6,11 +6,11 @@ package com.ngins.spring.jpa.postgresql.jpa.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Menu;
+import com.ngins.spring.jpa.postgresql.jpa.entity.Page;
 /**
  * 
  */
 @Repository
-public interface MenuRepositiry extends JpaRepository<Menu, Long> {
+public interface PageRepository extends JpaRepository<Page, Long> {
 
 }
