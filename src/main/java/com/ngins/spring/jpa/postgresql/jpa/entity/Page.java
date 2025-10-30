@@ -25,10 +25,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
 @Entity
 @Table(name = "tbl_page", comment = "페이지")
 public class Page {
+
+	public Page(Long id, String pageKey, String name) {
+		super();
+		this.id = id;
+		this.pageKey = pageKey;
+		this.name = name;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,14 +47,11 @@ public class Page {
 
 	@Column(name = "name", length = 120, nullable = false, comment = "이름")
 	private String name;
-	
-	
-	
+
 	@ManyToOne // (fetch = FetchType.LAZY)
 	@JoinColumn(name = "menu_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_page_fkey1"))
 	private Menu menu;
-	
-	
+
 	@OneToMany(mappedBy = "page", cascade = CascadeType.ALL, orphanRemoval = true) // 외래키 설정
 	private List<PageAction> pageActions = new ArrayList<>();
 
