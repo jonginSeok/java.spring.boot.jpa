@@ -36,7 +36,7 @@ public class Permission {
 	private Long id;
 
 	@Column(name = "resource_key", length = 100, nullable = false, comment = "리소스키")
-	private Long resourceKey;
+	private String resourceKey;
 
 	@Column(name = "action_key", length = 100, nullable = false, comment = "액션키")
 	private String actionKey; // VIEW, QUERY, SAVE, EXPORT_XLS, IMPORT_XLS
