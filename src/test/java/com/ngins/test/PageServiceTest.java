@@ -11,9 +11,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Page;
-import com.ngins.spring.jpa.postgresql.jpa.repository.PageRepository;
-import com.ngins.spring.jpa.postgresql.service.PageService;
+import com.ngins.spring.jpa.entity.postgresql.Page;
+import com.ngins.spring.jpa.repository.PageRepository;
+import com.ngins.spring.jpa.service.PageService;
 
 /**
  * 

@@ -3,7 +3,7 @@
 ##### 관리자/사용자 분리, 권한그룹에 따른 메뉴·버튼 노출 제어, PostgreSQL 기반의 RBAC(Role-Based Access Control)로 구성합니다.
 
 ##### 백엔드는 Spring Boot + Spring Security로 인증/인가를 처리하고, 화면 단위로 “허용된 액션 목록”을 내려주어 프런트가 버튼을 숨깁니다.
- 
+
 ##### • 플랫폼: JDK 24, Spring Boot 3.x, Spring Security 6.x, PostgreSQL
 
 ##### • 인증: JWT 기반 로그인 (세션리스)
@@ -14,25 +14,25 @@
 
 ## 🚀 Rbac 모델과 권한 전략
 ### 권한을 “메뉴 접근”과 “버튼/액션” 두 층으로 분리합니다. 메뉴는 네비게이션 접근 통제, 액션은 화면 내 기능 제어에 사용합니다.
- 
+
 • Label: 사용자
  - User는 하나 이상의 RoleGroup에 속하며, 직접 Role를 가질 수도 있습니다.
-	
+ 
 • Label: 권한 단위
  - Permission은 “리소스 + 액션”을 표현합니다. 예: resource=“inventory”, action=“SAVE”
-	
+ 
 • Label: 역할
  - Role은 여러 Permission을 묶은 추상화입니다. 예: ROLE_INVENTORY_MANAGER
-	
+ 
 • Label: 권한그룹
  - RoleGroup은 프로젝트/조직별 묶음. User ↔ RoleGroup ↔ Role ↔ Permission 체인으로 확장성 확보.
-	
+ 
 • Label: 메뉴
  - Menu는 계층 구조(parent_id). 각 Menu에 접근에 필요한 최소 Role 또는 Permission을 연결합니다.
-	
+ 
 • Label: 화면 액션
  - PageAction은 특정 page_key에서 사용할 수 있는 버튼/기능 키 목록입니다. Role/Permission과 매핑하여 노출/비노출을 제어합니다.
-
+ 
 
 ## 📦 PostgreSQL Ddl 설계
 ### 아래 스키마는 확장 가능한 RBAC를 위해 정규화했으며, 메뉴/페이지별 액션 제어까지 포함합니다.

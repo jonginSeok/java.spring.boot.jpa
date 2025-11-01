@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.ngins.spring.jpa.postgresql.jpa.entity.Permission;
-import com.ngins.spring.jpa.postgresql.service.PermissionService;
+import com.ngins.spring.jpa.entity.postgresql.Permission;
+import com.ngins.spring.jpa.service.PermissionService;
 
 import lombok.extern.slf4j.Slf4j;
 

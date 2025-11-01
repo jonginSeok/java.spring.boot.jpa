@@ -9,8 +9,8 @@
 		<version>4.0.0-M3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.ngins.spring.jpa.postgresql</groupId>
-	<artifactId>spring-boot-jpa-postgresql</artifactId>
+	<groupId>com.ngins.spring.jpa</groupId>
+	<artifactId>spring-boot-jpa</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
 	<name>spring-boot-jpa-postgresql</name>
@@ -107,6 +107,12 @@
 			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
 		</dependency>
 
+<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
+<dependency>
+    <groupId>org.mariadb.jdbc</groupId>
+    <artifactId>mariadb-java-client</artifactId>
+    <!--<version>3.5.6</version>-->
+</dependency>
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
