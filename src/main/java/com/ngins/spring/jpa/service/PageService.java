@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ngins.spring.jpa.entity.postgresql.Page;
+import com.ngins.spring.jpa.entity.mariadb.Page;
 import com.ngins.spring.jpa.repository.PageRepository;
 
 import jakarta.transaction.Transactional;

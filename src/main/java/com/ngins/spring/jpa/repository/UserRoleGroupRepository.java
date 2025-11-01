@@ -8,8 +8,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.ngins.spring.jpa.entity.postgresql.UserRoleGroup;
-import com.ngins.spring.jpa.entity.postgresql.UserRoleGroupId;
+import com.ngins.spring.jpa.entity.mariadb.UserRoleGroup;
+import com.ngins.spring.jpa.entity.mariadb.UserRoleGroupId;
 
 /**
  * 

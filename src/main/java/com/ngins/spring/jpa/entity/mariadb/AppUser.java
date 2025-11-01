@@ -1,4 +1,4 @@
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

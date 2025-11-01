@@ -1,4 +1,4 @@
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,23 +21,24 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_menu_required_role", comment = "메뉴필수역할")
-@IdClass(MenuRequiredRoleId.class)
-public class MenuRequiredRole {
+@Table(name = "tbl_user_role", comment = "사용자역할")
+@IdClass(UserRoleId.class)
+public class UserRole {
 
 	@Id
-	@Column(name = "menu_id", nullable = false, comment = "메뉴ID")
-	private Long menuId;
+	@Column(name = "user_id", nullable = false, comment = "사용자ID")
+	private Long userId;
 
 	@Id
 	@Column(name = "role_id", nullable = false, comment = "역할ID")
 	private Long roleId;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "menu_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_menu_require_role_fkey1"))
-	private Menu menu;
+	@JoinColumn(name = "user_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey1"))
+	private AppUser appUser;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_menu_require_role_fkey2"))
+	@JoinColumn(name = "role_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_user_role_fkey2"))
 	private Role role;
+
 }

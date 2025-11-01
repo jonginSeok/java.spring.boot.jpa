@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.ngins.spring.jpa.entity.postgresql.PageAction;
+import com.ngins.spring.jpa.entity.mariadb.PageAction;
 import com.ngins.spring.jpa.repository.PageActionRepository;
 
 import lombok.RequiredArgsConstructor;

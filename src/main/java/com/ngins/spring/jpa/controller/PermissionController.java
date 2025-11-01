@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ngins.spring.jpa.entity.postgresql.Permission;
+import com.ngins.spring.jpa.entity.mariadb.Permission;
 import com.ngins.spring.jpa.service.PermissionService;
 
 /**

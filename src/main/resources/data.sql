@@ -1,13 +1,3 @@
--- ✅ 2. 시퀀스 값을 초기화 (예: 1부터 시작)
-ALTER SEQUENCE tbl_app_user_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_audit_log_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_menu_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_page_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_page_action_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_permission_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_role_id_seq RESTART WITH 1;
-ALTER SEQUENCE tbl_role_group_id_seq RESTART WITH 1;
-
 -- 예시 권한
 INSERT INTO tbl_permission(resource_key, action_key, description) VALUES
 ('inventory', 'VIEW', '재고 화면 보기'),

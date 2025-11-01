@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import java.util.ArrayList;
 import java.util.List;

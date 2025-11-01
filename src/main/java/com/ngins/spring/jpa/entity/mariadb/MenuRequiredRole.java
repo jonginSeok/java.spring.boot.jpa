@@ -1,4 +1,4 @@
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,24 +21,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_page_action_role", comment = "페이지액션역할")
-@IdClass(PageActionRoleId.class)
-public class PageActionRole {
+@Table(name = "tbl_menu_required_role", comment = "메뉴필수역할")
+@IdClass(MenuRequiredRoleId.class)
+public class MenuRequiredRole {
 
 	@Id
-	@Column(name = "page_action_id", nullable = false, comment = "페이지액션ID")
-	private Long pageActionId;
+	@Column(name = "menu_id", nullable = false, comment = "메뉴ID")
+	private Long menuId;
 
 	@Id
 	@Column(name = "role_id", nullable = false, comment = "역할ID")
 	private Long roleId;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "page_action_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_page_action_role_fkey1"))
-	private PageAction pageAction;
+	@JoinColumn(name = "menu_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_menu_require_role_fkey1"))
+	private Menu menu;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "role_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_page_action_role_fkey2"))
+	@JoinColumn(name = "role_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_menu_require_role_fkey2"))
 	private Role role;
-
 }

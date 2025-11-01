@@ -1,4 +1,4 @@
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,10 +53,10 @@ public class Menu {
 	private Menu parent;
 
 	// columnDefinition 속성은 PostgreSQL에서만 동작
-	@Column(name = "display_order", nullable = false, columnDefinition = "int default 0")
+	@Column(name = "display_order", nullable = false) // , columnDefinition = "int default 0"
 	private Integer displayOrder;
 
-	@Column(name = "is_enabled", nullable = false, columnDefinition = "boolean default true")
+	@Column(name = "is_enabled", nullable = false) // , columnDefinition = "boolean default true"
 	private Boolean isEnabled;
 	
 	

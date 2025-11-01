@@ -1,4 +1,4 @@
-package com.ngins.spring.jpa.entity.postgresql;
+package com.ngins.spring.jpa.entity.mariadb;
 
 import java.io.Serializable;
 
@@ -16,14 +16,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
-public class PageActionPermissionId implements Serializable {
+public class MenuRequiredRoleId implements Serializable {
 
 	/**
 	 * serialVersionUID
 	 */
-	private static final long serialVersionUID = 7284522448274099236L;
+	private static final long serialVersionUID = -7512445508333619716L;
 
-	private Long pageActionId;
+	private Long menuId;
 
-	private Long permissionId;
+	private Long roleId;
 }

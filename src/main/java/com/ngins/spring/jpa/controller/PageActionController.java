@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ngins.spring.jpa.entity.postgresql.PageAction;
+import com.ngins.spring.jpa.entity.mariadb.PageAction;
 import com.ngins.spring.jpa.service.PageActionService;
 
 @Controller

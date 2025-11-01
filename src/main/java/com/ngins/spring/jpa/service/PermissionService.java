@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ngins.spring.jpa.entity.postgresql.Permission;
+import com.ngins.spring.jpa.entity.mariadb.Permission;
 import com.ngins.spring.jpa.repository.PermissionRepository;
 
 import lombok.RequiredArgsConstructor;

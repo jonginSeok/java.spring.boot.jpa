@@ -1,4 +1,7 @@
-package com.ngins.spring.jpa.entity.postgresql;
+/**
+ * 
+ */
+package com.ngins.spring.jpa.entity.mariadb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,30 +27,32 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tbl_role_group", comment = "역할그룹")
-public class RoleGroup {
+@Table(name = "tbl_role", comment = "역할")
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false, comment = "역할그룹ID")
+	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(name = "group_key", length = 100, nullable = false, comment = "그룹키")
-	private String groupKey;
+	@Column(name = "role_key", length = 100, nullable = false)
+	private String roleKey;
 
-	@Column(name = "name", length = 100, nullable = false, comment = "이름")
+	@Column(name = "name", length = 100, nullable = false)
 	private String name;
 
-	@Column(name = "description", length = 255, comment = "설명")
+	@Column(name = "description", length = 255)
 	private String description;
 
 	
 	
-	
-	@OneToMany(mappedBy = "roleGroup", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<UserRoleGroup> userRoleGroups = new ArrayList<>();
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<UserRole> userRoles = new ArrayList<>();
 
-	@OneToMany(mappedBy = "roleGroup", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<RoleGroupRole> roleGroupRoles = new ArrayList<>();
+
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MenuRequiredRole> menuRequiredRoles = new ArrayList<>();
 
 }
