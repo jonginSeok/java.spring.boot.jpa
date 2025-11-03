@@ -34,11 +34,11 @@ public class PageActionPermission {
 	private Long permissionId;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "page_action_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_role_permission_fkey1"))
+	@JoinColumn(name = "page_action_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_page_action_permission_fkey1"))
 	private PageAction pageAction;
 
 	@ManyToOne // (fetch = FetchType.LAZY)
-	@JoinColumn(name = "permission_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_role_permission_fkey2"))
+	@JoinColumn(name = "permission_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "tbl_page_action_permission_fkey2"))
 	private Permission permission;
 
 }

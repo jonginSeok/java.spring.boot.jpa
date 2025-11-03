@@ -33,24 +33,33 @@ public class SecurityConfig {
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http.csrf(AbstractHttpConfigurer::disable) // 메소드 참조
-				.httpBasic(AbstractHttpConfigurer::disable).authorizeHttpRequests(authorize -> authorize // 람다식
-						.requestMatchers("/signup", "/", "/login").permitAll()
-				// .anyRequest().authenticated() // anyRequest()는 모든 요청에 대한 마지막 규칙으로 사용해야 합니다.
-				)
+				.httpBasic(AbstractHttpConfigurer::disable)
+				.authorizeHttpRequests(authorize -> authorize // 람다식
+						.requestMatchers("/signup", "/", "/login").permitAll())
+				
 				// Form 로그인을 활용하는경우 (JWT에는 필요없음)
-				.formLogin(form -> form.loginPage("/loginform").loginProcessingUrl("/login").defaultSuccessUrl("/")
+				.formLogin(form -> form
+						.loginPage("/loginform")
+						.loginProcessingUrl("/login")
+						.defaultSuccessUrl("/")
 						.permitAll())
-				.logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true))
-				.sessionManagement(
-						sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-								.maximumSessions(1).maxSessionsPreventsLogin(true))
-				.authorizeHttpRequests(authorizeRequests -> authorizeRequests.anyRequest().permitAll() // 마지막에 한 번만 사용해야
-																										// 함
+				
+				.logout(logout -> logout
+						.logoutUrl("/logout")
+						.logoutSuccessUrl("/")
+						.invalidateHttpSession(true))
+				
+				.sessionManagement(sessionManagement -> sessionManagement
+						.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+						.maximumSessions(1)
+						.maxSessionsPreventsLogin(true))
+				
+				.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+						.anyRequest().permitAll() // 마지막에 한 번만 사용해야 함
 
 				// Spring Security에서 HttpSecurity를 설정할 때 authorizeRequests() 또는
 				// authorizeHttpRequests()를 사용하여 요청 경로에 대한 권한을 설정합니다.
 				// 이때 anyRequest()는 모든 요청에 대한 마지막 규칙으로 사용해야 합니다.
-
 				);
 
 		return http.build();

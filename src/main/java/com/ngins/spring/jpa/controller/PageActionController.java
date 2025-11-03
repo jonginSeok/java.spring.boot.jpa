@@ -1,5 +1,7 @@
 package com.ngins.spring.jpa.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,20 +12,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.ngins.spring.jpa.entity.mariadb.PageAction;
 import com.ngins.spring.jpa.service.PageActionService;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
-//@RequiredArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/PageActions")
 public class PageActionController {
 
 	private final PageActionService pageActionService;
 	
-	public PageActionController(PageActionService pageActionService) {
-		this.pageActionService = pageActionService;
-	}
+//	public PageActionController(PageActionService pageActionService) {
+//		this.pageActionService = pageActionService;
+//	}
 
 	@GetMapping
 	public String list(Model model) {
-		model.addAttribute("PageActions", pageActionService.findAll());
+		
+		List<PageAction> list = pageActionService.findAll();
+		
+		log.debug("list: ${}", list);
+		
+		model.addAttribute("PageActions", list);
 		return "PageAction/list";
 	}
 

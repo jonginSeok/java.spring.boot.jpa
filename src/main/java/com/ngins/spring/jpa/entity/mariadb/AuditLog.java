@@ -42,7 +42,8 @@ public class AuditLog {
 	@Column(name = "event", length = 200, nullable = false, comment = "이벤트")
 	private String event;
 
-	@Column(name = "details", columnDefinition = "JSONB", comment = "상세")
+	// @Column(name = "details", columnDefinition = "JSONB", comment = "상세") // MariaDB 에서 오류./JSONB
+	@Column(name = "details", columnDefinition = "LONGTEXT", comment = "상세")
 	private String details;
 
 	@CreatedDate
